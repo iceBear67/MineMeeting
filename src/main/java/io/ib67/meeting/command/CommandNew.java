@@ -4,6 +4,7 @@ import io.ib67.meeting.MeetingServer;
 import io.ib67.meeting.data.MeetingSession;
 import io.ib67.meeting.util.RandomStrings;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -56,12 +57,13 @@ public class CommandNew extends Command {
                             .append(Component.text("Join "))
                             .append(
                                     Component.text(meeting.inviteCode()+"."+server.getMeetingConfig().getServerHost())
+                                            .clickEvent(ClickEvent.copyToClipboard(meeting.inviteCode()+"."+server.getMeetingConfig().getServerHost()))
                                             .color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD).decoration(TextDecoration.BOLD,false)
                             ).appendSpace().append(Component.text("directly."))
             );
             p.sendMessage(
                     Component.text(" - Type ").append(
-                            Component.text("/go "+meeting.inviteCode()+" ")
+                            Component.text("/go "+meeting.inviteCode()+" ").clickEvent(ClickEvent.copyToClipboard("/go "+meeting.inviteCode()))
                                     .color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD).decoration(TextDecoration.BOLD,false)
                     ).append(Component.text("in the server."))
             );

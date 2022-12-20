@@ -6,6 +6,6 @@
 
 [关于 Minestom 的博文](https://ib67.io/2022/12/19/Getting-Started-With-Minestom/)
 
-Demo: room.sfclub.cc  
-demo 服务器只给了 128M, 而且没有 SLA 保障, 正版验证开启.
+Demo: lobby.sfclub.cc  
+demo 服务器只给了很少内存, 而且没有 SLA 保障, 正版验证开启.
 

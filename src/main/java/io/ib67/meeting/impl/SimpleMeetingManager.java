@@ -47,7 +47,7 @@ public class SimpleMeetingManager implements MeetingManager {
 
     @Override
     public void unregisterMeeting(MeetingSession session) {
-        log.info("Destroying a meeting: " + session.title() +" ("+session.inviteCode()+")");
+        log.info("Destroying a meeting: " + session.title() + " (" + session.inviteCode() + ")");
         session.instance().getPlayers().forEach(p -> p.kick("Meeting is ended"));
         MinecraftServer.getInstanceManager().unregisterInstance(session.instance());
         meetings.remove(session.inviteCode());
@@ -71,10 +71,10 @@ public class SimpleMeetingManager implements MeetingManager {
     @Override
     public void exitMeeting(Player player, MeetingSession meeting) {
         var inst = meeting.instance();
-        if (inst.getPlayers().size() - 1 <=0 && !meeting.persistent()){
+        if (inst.getPlayers().stream().noneMatch(it -> it != player) && !meeting.persistent() || inst.getPlayers().size()==0) { // strange
             log.info(meeting.title() + " is ended.");
             unregisterMeeting(meeting);
-        } else{
+        } else {
             inst.getPlayers().forEach(p -> {
                 p.sendMessage(Component.text(player.getUsername()).color(NamedTextColor.AQUA).append(Component.text(" left the meeting.")));
             });
