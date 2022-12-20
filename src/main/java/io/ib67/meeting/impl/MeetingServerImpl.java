@@ -78,6 +78,7 @@ public class MeetingServerImpl implements MeetingServer {
         getGlobalEventHandler().addListener(PlayerRespawnEvent.class, listener::handleRespawn);
         getGlobalEventHandler().addListener(PlayerBlockBreakEvent.class, listener::handleBreak);
         getGlobalEventHandler().addListener(PlayerMoveEvent.class,listener::handleMove);
+        getGlobalEventHandler().addListener(PlayerChatEvent.class,listener::handleChat);
         // create kept rooms
         for (var entry : meetingConfig.getKeptMeeting().entrySet()) {
             log.info("Creating Meeting: `" + entry.getKey() + "`  " + entry.getValue());

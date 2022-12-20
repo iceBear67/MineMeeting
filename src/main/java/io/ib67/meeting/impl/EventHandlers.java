@@ -78,7 +78,7 @@ public class EventHandlers {
             }
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
         } catch (InterruptedException | ExecutionException ex) {
-            throw new RuntimeException("Can't load chunk",ex);
+            throw new RuntimeException("Can't load chunk", ex);
         }
     }
 
@@ -183,10 +183,20 @@ public class EventHandlers {
 
     public void handleMove(@NotNull PlayerMoveEvent event) {
         var distance = server.getMeetingConfig().getMaxDistanceFromSpawn();
-        if(distance != -1){
-            if(event.getNewPosition().distance(server.getMapConfig().spawnPos()) > distance){
+        if (distance != -1) {
+            if (event.getNewPosition().distance(server.getMapConfig().spawnPos()) > distance) {
                 event.setNewPosition(event.getPlayer().getPosition());
             }
         }
+    }
+
+    public void handleChat(@NotNull PlayerChatEvent e) {
+        var p = e.getPlayer();
+        e.setCancelled(true);
+        p.getInstance().getPlayers().forEach(it -> {
+            it.sendMessage(e.getPlayer(), Component.text(
+                    e.getPlayer().getUsername() + ": "
+            ).color(NamedTextColor.AQUA).append(Component.text(e.getMessage()).color(NamedTextColor.WHITE)));
+        });
     }
 }
