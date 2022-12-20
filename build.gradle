@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.1"
+    id 'io.franzbecker.gradle-lombok' version '5.0.0'
+}
+
+group 'io.ib67'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+lombok {
+    version = "1.18.24"
+}
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'com.github.Minestom.Minestom:Minestom:809d9516b2'
+    implementation 'com.typesafe:config:1.4.2'
+}
+
+shadowJar{
+    manifest {
+        attributes Map.of(
+                "Main-Class","io.ib67.meeting.MeetingBoot"
+        )
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
