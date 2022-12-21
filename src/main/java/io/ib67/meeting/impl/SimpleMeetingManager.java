@@ -71,9 +71,11 @@ public class SimpleMeetingManager implements MeetingManager {
     @Override
     public void exitMeeting(Player player, MeetingSession meeting) {
         var inst = meeting.instance();
-        if (inst.getPlayers().stream().noneMatch(it -> it != player) && !meeting.persistent() || inst.getPlayers().size()==0) { // strange
-            log.info(meeting.title() + " is ended.");
-            unregisterMeeting(meeting);
+        if (inst.getPlayers().stream().noneMatch(it -> it != player) || inst.getPlayers().size()==0) { // strange
+            if(!meeting.persistent()) {
+                log.info(meeting.title() + " is ended.");
+                unregisterMeeting(meeting);
+            }
         } else {
             inst.getPlayers().forEach(p -> {
                 p.sendMessage(Component.text(player.getUsername()).color(NamedTextColor.AQUA).append(Component.text(" left the meeting.")));
